@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3x3 Court Drag & Drop</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <img src="img/3x3Logo.png" alt="Logo" class="logo">
+      <h1 class="titulo">FIBA 3x3 - REFEREEING MECHANICS BOARD</h1>
+      <span id="rules-btn">
+          <a href="https://fiba3x3.com/docs/fiba-3x3-basketball-rules-full-version.pdf" target="_blank" rel="noopener noreferrer">
+            <button>Go to <strong>RULES</strong></button>
+          </a>
+          <a href="https://fiba3x3.com/docs/fiba-3x3-basketball-rules-interpretations-yellow-version.pdf" target="_blank" rel="noopener noreferrer">
+            <button>Go to <strong>INTERPRETATIONS</strong></button>
+          </a>
+      </span>
+    </div>
+  </header>
+
+  <div id="command-previous-next-area"></div>
+
+  <div id="court-container">
+    <!-- Draggable elements -->
+    <div class="draggable teamA" id="A1" draggable="true">A1</div>
+    <div class="draggable teamA" id="A2" draggable="true">A2</div>
+    <div class="draggable teamA" id="A3" draggable="true">A3</div>
+
+    <div class="draggable teamB" id="B1" draggable="true">B1</div>
+    <div class="draggable teamB" id="B2" draggable="true">B2</div>
+    <div class="draggable teamB" id="B3" draggable="true">B3</div>
+
+    <div class="draggable referee" id="lead" draggable="true">LEAD</div>
+    <div class="draggable referee" id="trail" draggable="true">TRAIL</div>
+
+    <div class="ball    draggable ball" id="ball" draggable="true"></div>
+  </div>
+
+  <div id="command-area">
+    <button id="reset-btn" class="command-btn"><b>Reset</b> Positions</button>
+    <button id="saved-btn" class="command-btn"><b>List Recorded</b> Positions</button>
+    <button id="notes-btn" class="command-btn">Show/Hide <b>Notes</b></button>
+    <button id="zones-btn" class="command-btn"><b>Zones</b> in background</button>
+    <button id="export-btn" class="command-admin-btn"> <b>ADMIN</b> - Export Positions</button>
+  </div>
+
+
+<script src="script.js"></script>
+<script src="addons/zones-toggle.js"></script>
+<script type="module" src="addons/listingPositions.js"></script>
+<script src="addons/exportDiagram.js"></script>
+<script src="addons/notesViewer.js"></script>
+<script type="module" src="addons/mobileCourtModal.js"></script>
+
+
+
+
+</body>
+
+<footer class="site-footer">
+  <p>2025 - This material was exclusively created for FIBA 3x3 certified referees.</p>
+</footer>
+  
+
+</html>

@@ -1,0 +1,11 @@
+<div id="modal-instructions-vision">
+    <div class="modal-content modal-hidden">
+      <h2>Visual Field Instructions</h2>
+      <ul>
+        <li><strong>To move:</strong> Drag with mouse or use one finger (touch).</li>
+        <li><strong>To rotate:</strong> Hold <kbd>Shift</kbd> and drag with mouse, or use two fingers (touch).</li>
+        <li><strong>To close:</strong> Click the “OK” button below.</li>
+      </ul>
+      <button id="close-modal-btn">OK</button>
+    </div>
+</div>

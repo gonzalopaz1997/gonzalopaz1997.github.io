@@ -1,0 +1,255 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f0f0f0;
+    margin: 20px;
+  }
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  #court-container {
+    position: relative;
+    width: 1200px;
+    height: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+    background: url('/img/court.png') no-repeat center center;
+    background-size: cover;
+    border: 3px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    user-select: none;
+  }
+
+  /* Draggable items */
+  .draggable {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    cursor: grab;
+    user-select: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-size: 1.1rem;
+    background-color: #3498db; /* puedes ajustar el color de fondo */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Luz amarilla difusa adicional */
+  .draggable.highlighted {
+    box-shadow:
+      0 0 20px 10px rgba(255, 255, 0, 0.6),
+      0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+
+
+  /* Team A - red */
+  .teamA {
+    background-color: #e13333;
+    border: solid;
+    border-color: #000000;
+    
+  }
+
+  /* Team B - blue */
+  .teamB {
+    background-color: #2a67a3;
+    border: solid;
+    border-color: #000000
+  }
+
+  /* Referees - gray */
+  .referee {
+    background-color: #ffffff;
+    color: #000000;
+    border: solid;
+    border-color: #000000
+  }
+
+  /* Ball - orange */
+  .ball {
+    background: url('/img/3X3ball.png') no-repeat center center;
+    background-size: cover;
+    font-size: 1rem;
+    border: solid;
+    border-color: white
+  }
+
+  /* Initial positions on the court */
+  #A1 { top: 760px; left: 600px; }
+  #A2 { top: 500px; left: 180px; }
+  #A3 { top: 500px; left: 950px; }
+
+  #B1 { top: 620px; left: 600px; }
+  #B2 { top: 400px; left: 180px; }
+  #B3 { top: 400px; left: 950px; }
+
+  #lead { top: 10px; left: 300px; }
+  #trail { top: 700px; left: 800px; }
+
+  #ball { top: 700px; left: 610px; width: 50px; height: 50px; line-height: 50px;}
+
+  /* Reset button */
+  .command-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: #2a67a3;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+  }
+
+  .close-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+    border-color: #000000;
+  }
+
+  .command-link-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    background-color:white;
+    color:black;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+  }
+
+  .command-admin-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+  }
+
+  #reset-btn:hover {
+    background-color: #224f7a;
+  }
+
+
+
+  /* Header and footer styles */
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .site-header {
+    background-color: #000;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px 0;
+    height: 70px;
+  }
+  
+  .site-header .logo {
+    position: absolute;
+    left: 20px;
+    height: 100px;
+    margin: 5px;
+  }
+  
+  .site-header .titulo {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .site-header #rules-btn {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .site-footer {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    padding: 15px 0; 
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  #positions-modal button.command-btn {
+    background-color: #2a67a3;
+    color: white;
+  }
+ 
+  /* Header layout fix */
+.site-header {
+  padding: 10px;
+  background-color: black;
+  height: 90px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.logo {
+  height: 60px;
+}
+
+.titulo {
+  text-align: center;
+  flex: 1;
+  color: white;
+  font-size: 1.5em;
+}
+
+#rules-btn {
+  display: flex;
+  gap: 10px;
+}
+
+#rules-btn button{
+  font-size: medium;
+  padding: 2%;
+}
+
+#notes-btn{
+background-color: rgb(246, 239, 149);
+color: #e13333;
+
+}
+
+  
+ 
