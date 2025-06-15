@@ -269,6 +269,11 @@ color: #e13333;
   border-radius: 4px;
 }
 
-
+#toggle-canva {
+  border: solid;
+  border-color: black;
+  padding: 1%;
+  margin-right: 1%;
+}
   
  
