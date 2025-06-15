@@ -264,5 +264,11 @@ color: #e13333;
 
 }
 
+.selected-color {
+  outline: 2px solid yellow;
+  border-radius: 4px;
+}
+
+
   
  

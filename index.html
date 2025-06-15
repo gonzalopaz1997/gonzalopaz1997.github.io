@@ -51,10 +51,15 @@
     <button id="notes-btn" class="command-btn">Show/Hide <b>Notes</b></button>
     <button id="zones-btn" class="command-btn"><b>Zones</b> in background</button>
     <button id="export-btn" class="command-admin-btn"> <b>ADMIN</b> - Export Positions</button>
-    <button class="command-canva-btn" onclick="enableDrawing('red')">✏️🟥</button>
-    <button class="command-canva-btn" onclick="enableDrawing('blue')">✏️🟦</button>
-    <button class="command-canva-btn" onclick="enableDrawing('black')">✏️⬛</button>
-    <button class="command-canva-btn" onclick="clearCanvas()">🔄</button>    
+    <!-- Colores (activan/desactivan dibujo) -->
+    <button class="command-canva-btn" onclick="toggleDrawing('red', this)">✏️🟥</button>
+    <button class="command-canva-btn" onclick="toggleDrawing('blue', this)">✏️🟦</button>
+    <button class="command-canva-btn" onclick="toggleDrawing('black', this)">✏️⬛</button>
+
+    <!-- Edición -->
+    <button class="command-canva-btn" onclick="undoLast()">↩️</button>
+    <button class="command-canva-btn" onclick="clearCanvas()">🔄</button>
+ 
   </div>
 
 
