@@ -27,6 +27,9 @@
   <div id="command-previous-next-area"></div>
 
   <div id="court-container">
+
+    <!-- Canvas zone for drawing -->
+    <canvas id="drawingCanvas" style="position:absolute; top:0; left:0; z-index:5; pointer-events:none;"></canvas>
     <!-- Draggable elements -->
     <div class="draggable teamA" id="A1" draggable="true">A1</div>
     <div class="draggable teamA" id="A2" draggable="true">A2</div>
@@ -48,6 +51,10 @@
     <button id="notes-btn" class="command-btn">Show/Hide <b>Notes</b></button>
     <button id="zones-btn" class="command-btn"><b>Zones</b> in background</button>
     <button id="export-btn" class="command-admin-btn"> <b>ADMIN</b> - Export Positions</button>
+    <button class="command-canva-btn" onclick="enableDrawing('red')">✏️🟥</button>
+    <button class="command-canva-btn" onclick="enableDrawing('blue')">✏️🟦</button>
+    <button class="command-canva-btn" onclick="enableDrawing('black')">✏️⬛</button>
+    <button class="command-canva-btn" onclick="clearCanvas()">🔄</button>    
   </div>
 
 
@@ -57,6 +64,8 @@
 <script src="addons/exportDiagram.js"></script>
 <script src="addons/notesViewer.js"></script>
 <script type="module" src="addons/mobileCourtModal.js"></script>
+<script src="addons/canva.js"></script>
+
 
 
 
