@@ -123,13 +123,176 @@ const SavedPositions = [
         "comment": "As there is no open angle for trail to see the contact between A1 and B2, and lead had B2 as defender in his PCA from the beginningof the play...<br><br>The foul commited on A1 by B2 sould be called by lead referee."
       }
     ]
-  }
+  },
+
+  {//Foul on rebound + 2 points basket
+    "title": "Foul on REBOUND + 2 points successfull shot",
+    "youtubeLink": "https://www.youtube.com/clip/UgkxL5lAfmmJaswfUNpHdR9Ew90IcM9t0SRz",
+    "frames": [
+      {
+        "A1": {
+          "top": "552px",
+          "left": "927px"
+        },
+        "A2": {
+          "top": "403px",
+          "left": "1002px"
+        },
+        "A3": {
+          "top": "399px",
+          "left": "283px"
+        },
+        "B1": {
+          "top": "463px",
+          "left": "885px"
+        },
+        "B2": {
+          "top": "340px",
+          "left": "975px"
+        },
+        "B3": {
+          "top": "295px",
+          "left": "329px"
+        },
+        "lead": {
+          "top": "",
+          "left": ""
+        },
+        "trail": {
+          "top": "712px",
+          "left": "983px"
+        },
+        "ball": {
+          "top": "510px",
+          "left": "901px"
+        },
+        "comment": "Lead in in charge of only 2 players involved in the inactive match-upin zone 1 while trail have the other 4 on his PCA. \nTrail must keep an open angle to be able to observe bothe match-ups us there is a potential screening situation coming in zone 2."
+      },
+      {
+        "A1": {
+          "top": "660px",
+          "left": "529px"
+        },
+        "A2": {
+          "top": "444px",
+          "left": "1043px"
+        },
+        "A3": {
+          "top": "571px",
+          "left": "876px"
+        },
+        "B1": {
+          "top": "505px",
+          "left": "545px"
+        },
+        "B2": {
+          "top": "340px",
+          "left": "975px"
+        },
+        "B3": {
+          "top": "475px",
+          "left": "795px"
+        },
+        "lead": {
+          "top": "3px",
+          "left": "464px"
+        },
+        "trail": {
+          "top": "651px",
+          "left": "968px"
+        },
+        "ball": {
+          "top": "423px",
+          "left": "999px"
+        },
+        "comment": "At this point the 6 players are so close to zone 2(so close to trai's PCA).\nLead should adjust the position to \"close down\" in order to be able to be in charge at least of the zone 1 match-up.\nTrail must adjust positioning to cover the potential 2pt shot and a potential screening situation."
+      },
+      {
+        "A1": {
+          "top": "660px",
+          "left": "529px"
+        },
+        "A2": {
+          "top": "318px",
+          "left": "864px"
+        },
+        "A3": {
+          "top": "571px",
+          "left": "876px"
+        },
+        "B1": {
+          "top": "505px",
+          "left": "545px"
+        },
+        "B2": {
+          "top": "242px",
+          "left": "813px"
+        },
+        "B3": {
+          "top": "349px",
+          "left": "775px"
+        },
+        "lead": {
+          "top": "3px",
+          "left": "464px"
+        },
+        "trail": {
+          "top": "651px",
+          "left": "968px"
+        },
+        "ball": {
+          "top": "328px",
+          "left": "830px"
+        },
+        "comment": "Now A2 is a potential shooter and A3 starts a drive from trail's side.\nThis means, trail is stll in charge of the coverage of the drive and after it a potential 2 point shot.\nLead is still responsible for the inactive match-up between A1 and B1."
+      },
+      {
+        "A1": {
+          "top": "422px",
+          "left": "542px"
+        },
+        "A2": {
+          "top": "289px",
+          "left": "798px"
+        },
+        "A3": {
+          "top": "611px",
+          "left": "964px"
+        },
+        "B1": {
+          "top": "362px",
+          "left": "559px"
+        },
+        "B2": {
+          "top": "490px",
+          "left": "870px"
+        },
+        "B3": {
+          "top": "297px",
+          "left": "727px"
+        },
+        "lead": {
+          "top": "3px",
+          "left": "464px"
+        },
+        "trail": {
+          "top": "674px",
+          "left": "847px"
+        },
+        "ball": {
+          "top": "575px",
+          "left": "941px"
+        },
+        "comment": "As the play results in a fast pass to the shooter, trail's attention must be on the 2 points shot(potential illegal contact of the defender or the shooter and the landing space).\nThe lead is responsible now of 4 players on the paint fighting for the rebound.\nIf there is a foul lead must know if it happened before the act of shooting started or after."
+      }
+    ]
+  },
+
+
+
+
 
 //Paste here the next diagram as it is exported from the platform.
-
-
-
-
 ];
 
 export default SavedPositions;

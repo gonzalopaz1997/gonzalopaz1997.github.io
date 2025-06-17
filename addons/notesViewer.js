@@ -110,16 +110,27 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btn) {
       btn.addEventListener("click", () => {
         const videoId = getYouTubeVideoId(diagram.youtubeLink);
+
         if (videoId) {
-          contentDiv.innerHTML += `
-            <br><br>
-            <iframe width="100%" height="200" 
-              src="https://www.youtube.com/embed/${videoId}" 
-              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
-          `;
-          btn.remove(); // Quitar el botón una vez insertado el video
+          // Verificar si es un YouTube Clip o un video normal
+          if (isYouTubeClip(diagram.youtubeLink)) {
+            // Si es un YouTube Clip, redirigir al usuario al enlace del clip
+            contentDiv.innerHTML += `
+              <br><br>
+              <p>Este es un YouTube Clip, no se puede reproducir aquí. <a href="${diagram.youtubeLink}" target="_blank">Haz clic aquí para verlo en YouTube.</a></p>
+            `;
+          } else {
+            // Si es un video normal, insertar el iframe
+            contentDiv.innerHTML += `
+              <br><br>
+              <iframe width="100%" height="200" 
+                src="https://www.youtube.com/embed/${videoId}" 
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
+            `;
+          }
+          btn.remove(); // Quitar el botón una vez insertado el video o redirigido al clip
         }
       });
     }
@@ -127,11 +138,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Extrae el ID del video de YouTube desde la URL
   function getYouTubeVideoId(url) {
-    const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
+    const clipRegex = /(?:youtube\.com\/clip\/)([a-zA-Z0-9_-]+)/;
+    const regularRegex = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    
+    // Intentamos primero con el formato de clip
+    let match = url.match(clipRegex);
+    if (match) {
+      return match[1];  // Si es un clip, devuelve el ID del clip
+    }
+    
+    // Si no es un clip, intentamos con el formato normal
+    match = url.match(regularRegex);
+    return match ? match[1] : null;  // Devuelve el ID del video, o null si no lo encuentra
   }
-  
+
+  // Función para verificar si es un YouTube Clip
+  function isYouTubeClip(url) {
+    const clipRegex = /(?:youtube\.com\/clip\/)/;
+    return clipRegex.test(url);
+  }
 
   // Hace el cuadro movible
   function makeDraggable(element) {

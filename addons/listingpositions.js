@@ -35,6 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.entries(frame).forEach(([id, pos]) => {
       const el = document.getElementById(id);
       if (el) {
+        // Añadir la transición directamente en JavaScript
+        el.style.transition = "top 1.0s ease, left 1.0s ease"; // Transición de 0.5 segundos
+
+        // Aplicar las nuevas posiciones
         el.style.top = pos.top;
         el.style.left = pos.left;
         el.style.position = "absolute";
@@ -45,11 +49,31 @@ document.addEventListener("DOMContentLoaded", () => {
   function showDiagram(diagram) {
     window.currentDiagram = diagram;
     window.currentFrameIndex = 0;
-    applyFrame(diagram.frames[0]);
-    window.updateNotesBox?.(); // ✅ actualiza nota al seleccionar diagrama
+    
+    // Desactivar la transición para el primer fotograma (para evitar animaciones al cargar)
+    Object.entries(diagram.frames[0]).forEach(([id, pos]) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.transition = "none"; // Sin transición en el primer fotograma
+        el.style.top = pos.top;
+        el.style.left = pos.left;
+        el.style.position = "absolute";
+      }
+    });
+
+    // Luego de aplicar el primer fotograma, reactivar las transiciones
+    setTimeout(() => {
+      Object.entries(diagram.frames[0]).forEach(([id, pos]) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.transition = "top 1.0s ease, left 1.0s ease"; // Reactivar la transición
+        }
+      });
+    }, 100); // Esperamos 100 ms para asegurarnos de que el primer fotograma se aplique sin transición
+
+    window.updateNotesBox?.(); // Actualiza la nota
     modal.style.display = "none";
   }
-  
 
   savedBtn.addEventListener("click", () => {
     modalContent.innerHTML = "<h2>Select one of the following recorded diagrams:</h2>";
@@ -97,23 +121,21 @@ document.addEventListener("DOMContentLoaded", () => {
   nextBtn.style.height = "50px";
   nextBtn.style.backgroundColor = "green";
 
-
   previousBtn.onclick = () => {
     if (window.currentDiagram && window.currentFrameIndex > 0) {
       window.currentFrameIndex--;
       applyFrame(window.currentDiagram.frames[window.currentFrameIndex]);
-      window.updateNotesBox?.(); // ✅ actualiza nota si está visible
+      window.updateNotesBox?.(); // Actualiza la nota si está visible
     }
   };
-  
+
   nextBtn.onclick = () => {
     if (window.currentDiagram && window.currentFrameIndex < window.currentDiagram.frames.length - 1) {
       window.currentFrameIndex++;
       applyFrame(window.currentDiagram.frames[window.currentFrameIndex]);
-      window.updateNotesBox?.(); // ✅ actualiza nota si está visible
+      window.updateNotesBox?.(); // Actualiza la nota si está visible
     }
   };
-  
 
   document.getElementById("command-previous-next-area").appendChild(previousBtn);
   document.getElementById("command-previous-next-area").appendChild(nextBtn);
