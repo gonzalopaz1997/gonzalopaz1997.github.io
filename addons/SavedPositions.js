@@ -7,7 +7,7 @@ const SavedPositions = [
     "frames": [
       {
         "A1": {
-          "top": "135px",
+          "top": "535px",
           "left": "1015.67px"
         },
         "A2": {
