@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Si es un YouTube Clip, redirigir al usuario al enlace del clip
             contentDiv.innerHTML += `
               <br><br>
-              <p>Este es un YouTube Clip, no se puede reproducir aquí. <a href="${diagram.youtubeLink}" target="_blank">Haz clic aquí para verlo en YouTube.</a></p>
+              <p>This is a youtube clip, cannot be played here. <a href="${diagram.youtubeLink}" target="_blank">Just click here to go to the video.</a></p>
             `;
           } else {
             // Si es un video normal, insertar el iframe
