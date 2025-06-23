@@ -144,11 +144,19 @@ resetBtn.addEventListener('click', () => {
         Math.min(top, court.offsetHeight - selectedItem.offsetHeight)
       );
 
+      // Activa la transición sólo para este movimiento
+      selectedItem.style.transition = 'top 0.6s ease, left 0.6s ease';
+
+      
       selectedItem.style.left = `${left}px`;
       selectedItem.style.top = `${top}px`;
       selectedItem.style.position = 'absolute';
 
-      // Clean up
+      // Limpia la transición después que se mueva
+      setTimeout(() => {
+      selectedItem.style.transition = '';
+      }, 650);
+
       selectedItem.classList.remove(SELECTED_CLASS);
       selectedItem = null;
     },
