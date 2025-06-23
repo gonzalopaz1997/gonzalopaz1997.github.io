@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const courtContainer = document.getElementById("court-container");
 
     const backgrounds = [
-        "img/court.png",
-        "img/court-zones.png",
-        "img/court-zones-movement.png",
-        "img/court-zones-movement-numbers.png"
+        "img/court2.png",
+        "img/court-zones2.png",
+        "img/court-zones-movement2.png",
+        "img/court-zones-movement-numbers2.png"
     ];
 
     let currentIndex = 0;
