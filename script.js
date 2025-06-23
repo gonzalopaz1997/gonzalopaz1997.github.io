@@ -4,7 +4,7 @@ const resetBtn = document.getElementById('reset-btn');
 
 // Store initial positions for reset
 const initialPositions = {};
-draggables.forEach(el => {
+draggables.forEach((el) => {
   initialPositions[el.id] = {
     top: el.style.top,
     left: el.style.left,
@@ -13,13 +13,19 @@ draggables.forEach(el => {
 
 let draggedItem = null;
 
-draggables.forEach(el => {
+// ==============================
+// Desktop (mouse / trackpad)
+// ==============================
+draggables.forEach((el) => {
   el.addEventListener('dragstart', dragStart);
 });
 
 court.addEventListener('dragover', dragOver);
+court.addEventListener('drop', drop);
 
 function dragStart(e) {
+  // Ignore touch-based drag events (were disabled later), keep only mouse
+  if (e.pointerType === 'touch') return;
   draggedItem = e.target;
   draggedItem.style.opacity = '0.5';
   e.dataTransfer.setData('text/plain', e.target.id);
@@ -51,50 +57,52 @@ function drop(e) {
 }
 
 resetBtn.addEventListener('click', () => {
-  draggables.forEach(el => {
+  draggables.forEach((el) => {
     const pos = initialPositions[el.id];
     el.style.top = pos.top;
     el.style.left = pos.left;
   });
 });
 
-/* =========================
-   TOUCH INPUT HANDLING
-   =========================
-   On touch‑capable devices we switch the interaction model from drag‑and‑drop
-   to “tap‑to‑select” + “tap‑to‑place”.
-   1) First tap on a .draggable element selects it.
-   2) Second tap anywhere in #court-container places the element centred at
-      the tap location (respecting court boundaries).
-   Desktop behaviour (pointerType === 'mouse') remains unchanged.
+/* =====================================================
+   TOUCH INPUT HANDLING  –  tap‑to‑select → tap‑to‑place
+   =====================================================
+   1) First tap on a .draggable element selects it (adds outline)
+   2) Second tap anywhere on #court-container re‑positions the element
+   Desktop behaviour remains unchanged.
 */
 (function () {
   const isTouchDevice =
     'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-  if (!isTouchDevice) return; // Desktop keeps the original drag behaviour
+  if (!isTouchDevice) return; // Abort if not touch capable
 
-  // Give visual feedback when an element is selected
+  // Disable native HTML5 drag on touch so it doesn't conflict
+  draggables.forEach((el) => el.setAttribute('draggable', 'false'));
+
   const SELECTED_CLASS = 'selected-for-move';
+  // Inject once — keeps styles inside JS for portability
   const styleTag = document.createElement('style');
   styleTag.textContent = `
     .${SELECTED_CLASS} {
-      outline: 2px dashed #ff6600;
-      outline-offset: -2px;
+      outline: 3px dashed #ff6a00;
+      outline-offset: -3px;
+      transition: outline 0.1s ease-in-out;
     }`;
   document.head.appendChild(styleTag);
 
   let selectedItem = null;
 
+  // ───── Select Phase ─────
   draggables.forEach((el) => {
-    // Disable native HTML5 dragging on touch so it does not interfere
-    el.setAttribute('draggable', 'false');
-
     el.addEventListener(
       'touchstart',
       (e) => {
-        e.preventDefault(); // prevent accidental page scroll
-        // If we tapped the already‑selected element, deselect it
+        // Prevent scroll AND stop bubbling so court doesn't capture same tap
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Re‑selecting the same element toggles selection off
         if (selectedItem === el) {
           el.classList.remove(SELECTED_CLASS);
           selectedItem = null;
@@ -112,12 +120,12 @@ resetBtn.addEventListener('click', () => {
     );
   });
 
+  // ───── Place Phase ─────
   court.addEventListener(
     'touchstart',
     (e) => {
       if (!selectedItem) return; // nothing selected → nothing to place
 
-      // The first touch point gives us the tap coordinates
       const touch = e.touches[0];
       const courtRect = court.getBoundingClientRect();
 
@@ -126,7 +134,7 @@ resetBtn.addEventListener('click', () => {
       let top =
         touch.clientY - courtRect.top - selectedItem.offsetHeight / 2;
 
-      // Keep the element inside the court boundaries
+      // Constrain inside court bounds
       left = Math.max(
         0,
         Math.min(left, court.offsetWidth - selectedItem.offsetWidth)
@@ -136,11 +144,11 @@ resetBtn.addEventListener('click', () => {
         Math.min(top, court.offsetHeight - selectedItem.offsetHeight)
       );
 
-      selectedItem.style.left = left + 'px';
-      selectedItem.style.top = top + 'px';
+      selectedItem.style.left = `${left}px`;
+      selectedItem.style.top = `${top}px`;
       selectedItem.style.position = 'absolute';
 
-      // Clear selection and feedback
+      // Clean up
       selectedItem.classList.remove(SELECTED_CLASS);
       selectedItem = null;
     },
