@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
     notesBox.id = "notes-box";
     Object.assign(notesBox.style, {
       position: "fixed",
-      bottom: "80px",
-      right: "20px",
+      bottom: "20px",   // menos margen abajo
+      right: "20px",    // pegado a la derecha
       backgroundColor: "#fff8b0",
       padding: "20px",
       border: "1px solid #e2c044",
@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       whiteSpace: "pre-wrap",
       cursor: "move",
     });
+
 
     // Cerrar con X
     const closeBtn = document.createElement("div");
