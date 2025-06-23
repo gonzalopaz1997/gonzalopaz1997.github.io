@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     notesBox = document.createElement("div");
     notesBox.id = "notes-box";
     Object.assign(notesBox.style, {
-      position: "absolute",
+      position: "fixed",
       bottom: "80px",
       right: "20px",
       backgroundColor: "#fff8b0",
