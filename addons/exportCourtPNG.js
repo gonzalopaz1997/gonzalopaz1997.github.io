@@ -1,28 +1,25 @@
-// addons/exportCourtPNG.js  (módulo ES)
+// addons/exportCourtPNG.js
 document.addEventListener('DOMContentLoaded', () => {
-  /* 1️⃣ Botón “Download PNG” */
-  const exportBtn = document.createElement('button');
-  exportBtn.id = 'export-png-btn';
-  exportBtn.textContent = 'Download PNG';
-  exportBtn.className = 'command-btn';  // usa tu estilo de botones
-  // Ajusta dónde insertarlo:
-  document.querySelector('.command-previous-next-area')?.appendChild(exportBtn);
+  /* 1️⃣ Obtenemos el botón existente en el HTML */
+  const exportBtn = document.getElementById('downloadPNG-btn');
+  if (!exportBtn) return;
 
-  /* 2️⃣ Lógica de captura */
+  /* 2️⃣ Cuando se hace clic, capturamos el div #court-container como imagen */
   exportBtn.addEventListener('click', async () => {
     const court = document.getElementById('court-container');
     if (!court) return;
 
-    // ➡️ Captura. 'scale:3' = 3× más resolución
     const canvas = await html2canvas(court, {
-      backgroundColor: null,   // PNG transparente
-      scale: 3
+      backgroundColor: null, // Fondo transparente
+      scale: 3               // Exportar en alta resolución
     });
 
-    // ➡️ Desencadena la descarga
+    /* 3️⃣ Convertimos el canvas a PNG y preparamos la descarga */
     const link = document.createElement('a');
     link.download = 'court-diagram.png';
     link.href = canvas.toDataURL('image/png');
+
+    /* 4️⃣ Disparamos la descarga automáticamente */
     link.click();
   });
 });
