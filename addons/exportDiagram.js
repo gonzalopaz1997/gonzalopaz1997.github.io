@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <input type="text" id="diagram-title" placeholder="Type a title for this new mechanics diagram." style="width: 80%; padding: 5px;"><br><br>
             <input type="url" id="youtube-link" placeholder="Link to a YouTube video (optional)" style="width: 80%; padding: 5px;"/><br><br>
             <textarea id="frame-comment" placeholder="Write your comment for the current frame." style="width: 80%; height: 100px; padding: 5px; margin-top: 10px;"></textarea><br><br>
-            <button id="get-instructions-btn" class="command-btn">Get Instructions ❓</button><br><br>
             <button id="record-frame-btn" class="command-btn">➕ Record Current Frame</button>
             <button id="export-json-btn" class="command-btn">✅ Finish & Export</button>
             <button id="cancel-export-btn" class="command-btn">❌ Cancel</button>
@@ -84,101 +83,78 @@ document.addEventListener("DOMContentLoaded", () => {
 
         modal.style.display = "flex";
 
-        const getInstructionsBtn = document.getElementById("get-instructions-btn");
-        if (getInstructionsBtn) {
-            getInstructionsBtn.onclick = () => {
+        // Acción para el botón de "Record Current Frame"
+        document.getElementById("record-frame-btn").onclick = () => {
+            const frame = {};
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                frame[id] = {
+                    top: el.style.top,
+                    left: el.style.left
+                };
+            });
+
+            // Tomamos el comentario desde el textarea
+            const comment = document.getElementById("frame-comment").value.trim();
+            if (comment) frame.comment = comment;
+
+            recordedFrames.push(frame);
+            document.getElementById("frame-count").textContent = `Frames recorded: ${recordedFrames.length}`;
+            document.getElementById("frame-comment").value = "";  // Limpiar el textarea para el siguiente frame
+            modal.style.display = "none";
+            createFloatingBtn();
+        };
+
+        // Acción para el botón de "Finish & Export"
+        document.getElementById("export-json-btn").onclick = () => {
+            const youtubeLink = document.getElementById('youtube-link').value;
+            const title = document.getElementById("diagram-title").value.trim();
+            if (!title || recordedFrames.length === 0) {
+                alert("Please provide a title and at least one frame.");
+                return;
+            }
+
+            const exportData = {
+                title,
+                youtubeLink,
+                frames: recordedFrames
+            };
+
+            const output = document.getElementById("export-output");
+
+            // JSON.stringify con el espacio de indentación a null para evitar saltos de línea
+            output.value = JSON.stringify(exportData).replace(/\n/g, '').replace(/\s+/g, ' ');
+
+            output.style.display = "block";
+
+            // Botón de descarga JSON
+            let downloadBtn = document.getElementById("download-json-btn");
+            if (!downloadBtn) {
+                downloadBtn = document.createElement("button");
+                downloadBtn.id = "download-json-btn";
+                downloadBtn.innerText = "📥 Download JSON";
+                downloadBtn.className = "command-btn";
+                downloadBtn.style.marginTop = "10px";
+                modalContent.appendChild(downloadBtn);
+            }
+
+            downloadBtn.onclick = () => {
+                const blob = new Blob([JSON.stringify(exportData)], { type: "application/json" });
                 const link = document.createElement("a");
-                link.href = "ExportingInstructions.pdf";
-                link.download = "ExportingInstructions.pdf";
+                link.href = URL.createObjectURL(blob);
+                // Cambiar el nombre del archivo: "RECORDED FRAMES - [Título].json"
+                link.download = `RECORDED FRAMES - ${title.replace(/\s+/g, '_')}.txt`; 
                 link.click();
             };
-        } else {
-            console.error("Get Instructions button (#get-instructions-btn) not found!");
-        }
 
-        const recordFrameBtn = document.getElementById("record-frame-btn");
-        if (recordFrameBtn) {
-            recordFrameBtn.onclick = () => {
-                const frame = {};
-                ids.forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) {
-                        frame[id] = { top: el.style.top, left: el.style.left };
-                    }
-                });
+            if (floatingBtn) floatingBtn.remove();
+            floatingBtn = null;
+        };
 
-                const comment = document.getElementById("frame-comment").value.trim();
-                if (comment) frame.comment = comment;
-
-                recordedFrames.push(frame);
-                document.getElementById("frame-count").textContent = `Frames recorded: ${recordedFrames.length}`;
-                document.getElementById("frame-comment").value = "";
-                modal.style.display = "none";
-                createFloatingBtn();
-            };
-        } else {
-            console.error("Record Frame button (#record-frame-btn) not found!");
-        }
-
-        const exportJsonBtn = document.getElementById("export-json-btn");
-        if (exportJsonBtn) {
-            exportJsonBtn.onclick = () => {
-                const youtubeLink = document.getElementById('youtube-link').value;
-                const title = document.getElementById("diagram-title").value.trim();
-                if (!title || recordedFrames.length === 0) {
-                    alert("Please provide a title and at least one frame.");
-                    return;
-                }
-
-                const exportData = {
-                    title,
-                    youtubeLink,
-                    frames: recordedFrames
-                };
-
-                // Debugging log
-                console.log("Export Data:", exportData);
-
-                const oneLinerExport = `// START - ${title}\n${JSON.stringify(exportData).replace(/\n/g, '')}\n// END - ${title}`;
-
-                const output = document.getElementById("export-output");
-                output.value = oneLinerExport;
-                output.style.display = "block";
-
-                let downloadBtn = document.getElementById("download-json-btn");
-                if (!downloadBtn) {
-                    downloadBtn = document.createElement("button");
-                    downloadBtn.id = "download-json-btn";
-                    downloadBtn.innerText = "📥 Download One-Liner Export";
-                    downloadBtn.className = "command-btn";
-                    downloadBtn.style.marginTop = "10px";
-                    modalContent.appendChild(downloadBtn);
-                }
-
-                downloadBtn.onclick = () => {
-                    const blob = new Blob([oneLinerExport], { type: "text/plain" });
-                    const link = document.createElement("a");
-                    link.href = URL.createObjectURL(blob);
-                    link.download = `PLAY - ${title.replace(/\s+/g, '_')}.txt`;
-                    link.click();
-                };
-
-                if (floatingBtn) floatingBtn.remove();
-                floatingBtn = null;
-            };
-        } else {
-            console.error("Export JSON button (#export-json-btn) not found!");
-        }
-
-        const cancelExportBtn = document.getElementById("cancel-export-btn");
-        if (cancelExportBtn) {
-            cancelExportBtn.onclick = () => {
-                modal.style.display = "none";
-                if (floatingBtn) floatingBtn.remove();
-                floatingBtn = null;
-            };
-        } else {
-            console.error("Cancel Export button (#cancel-export-btn) not found!");
-        }
+        document.getElementById("cancel-export-btn").onclick = () => {
+            modal.style.display = "none";
+            if (floatingBtn) floatingBtn.remove();
+            floatingBtn = null;
+        };
     });
 });
