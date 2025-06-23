@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const exportBtn = document.getElementById("export-btn");
-
     if (!exportBtn) {
-        console.error("Export button not found!");
+        console.error("Export button (#export-btn) not found!");
         return;
     }
 
@@ -85,81 +84,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
         modal.style.display = "flex";
 
-        document.getElementById("get-instructions-btn").onclick = () => {
-            const link = document.createElement("a");
-            link.href = "ExportingInstructions.pdf";
-            link.download = "ExportingInstructions.pdf";
-            link.click();
-        };
-
-        document.getElementById("record-frame-btn").onclick = () => {
-            const frame = {};
-            ids.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    frame[id] = { top: el.style.top, left: el.style.left };
-                }
-            });
-
-            const comment = document.getElementById("frame-comment").value.trim();
-            if (comment) frame.comment = comment;
-
-            recordedFrames.push(frame);
-            document.getElementById("frame-count").textContent = `Frames recorded: ${recordedFrames.length}`;
-            document.getElementById("frame-comment").value = "";
-            modal.style.display = "none";
-            createFloatingBtn();
-        };
-
-        document.getElementById("export-json-btn").onclick = () => {
-            const youtubeLink = document.getElementById('youtube-link').value;
-            const title = document.getElementById("diagram-title").value.trim();
-            if (!title || recordedFrames.length === 0) {
-                alert("Please provide a title and at least one frame.");
-                return;
-            }
-
-            const exportData = {
-                title,
-                youtubeLink,
-                frames: recordedFrames
-            };
-
-            // Debugging log
-            console.log("Export Data:", exportData);
-
-            const oneLinerExport = `// START - ${title}\n${JSON.stringify(exportData).replace(/\n/g, '')}\n// END - ${title}`;
-
-            const output = document.getElementById("export-output");
-            output.value = oneLinerExport;
-            output.style.display = "block";
-
-            let downloadBtn = document.getElementById("download-json-btn");
-            if (!downloadBtn) {
-                downloadBtn = document.createElement("button");
-                downloadBtn.id = "download-json-btn";
-                downloadBtn.innerText = "📥 Download One-Liner Export";
-                downloadBtn.className = "command-btn";
-                downloadBtn.style.marginTop = "10px";
-                modalContent.appendChild(downloadBtn);
-            }
-
-            downloadBtn.onclick = () => {
-                const blob = new Blob([oneLinerExport], { type: "text/plain" });
+        const getInstructionsBtn = document.getElementById("get-instructions-btn");
+        if (getInstructionsBtn) {
+            getInstructionsBtn.onclick = () => {
                 const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = `PLAY - ${title.replace(/\s+/g, '_')}.txt`;
+                link.href = "ExportingInstructions.pdf";
+                link.download = "ExportingInstructions.pdf";
                 link.click();
             };
+        } else {
+            console.error("Get Instructions button (#get-instructions-btn) not found!");
+        }
 
-            if (floatingBtn) floatingBtn.remove();
-            floatingBtn = null;
-        };
+        const recordFrameBtn = document.getElementById("record-frame-btn");
+        if (recordFrameBtn) {
+            recordFrameBtn.onclick = () => {
+                const frame = {};
+                ids.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        frame[id] = { top: el.style.top, left: el.style.left };
+                    }
+                });
 
-        document.getElementById("cancel-export-btn").onclick = () => {
-            modal.style.display = "none";
-            if (floatingBtn) floatingBtn.remove();
-            floatingBtn = null;
-        };
+                const comment = document.getElementById("frame-comment").value.trim();
+                if (comment) frame.comment = comment;
+
+                recordedFrames.push(frame);
+                document.getElementById("frame-count").textContent = `Frames recorded: ${recordedFrames.length}`;
+                document.getElementById("frame-comment").value = "";
+                modal.style.display = "none";
+                createFloatingBtn();
+            };
+        } else {
+            console.error("Record Frame button (#record-frame-btn) not found!");
+        }
+
+        const exportJsonBtn = document.getElementById("export-json-btn");
+        if (exportJsonBtn) {
+            exportJsonBtn.onclick = () => {
+                const youtubeLink = document.getElementById('youtube-link').value;
+                const title = document.getElementById("diagram-title").value.trim();
+                if (!title || recordedFrames.length === 0) {
+                    alert("Please provide a title and at least one frame.");
+                    return;
+                }
+
+                const exportData = {
+                    title,
+                    youtubeLink,
+                    frames: recordedFrames
+                };
+
+                // Debugging log
+                console.log("Export Data:", exportData);
+
+                const oneLinerExport = `// START - ${title}\n${JSON.stringify(exportData).replace(/\n/g, '')}\n// END - ${title}`;
+
+                const output = document.getElementById("export-output");
+                output.value = oneLinerExport;
+                output.style.display = "block";
+
+                let downloadBtn = document.getElementById("download-json-btn");
+                if (!downloadBtn) {
+                    downloadBtn = document.createElement("button");
+                    downloadBtn.id = "download-json-btn";
+                    downloadBtn.innerText = "📥 Download One-Liner Export";
+                    downloadBtn.className = "command-btn";
+                    downloadBtn.style.marginTop = "10px";
+                    modalContent.appendChild(downloadBtn);
+                }
+
+                downloadBtn.onclick = () => {
+                    const blob = new Blob([oneLinerExport], { type: "text/plain" });
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `PLAY - ${title.replace(/\s+/g, '_')}.txt`;
+                    link.click();
+                };
+
+                if (floatingBtn) floatingBtn.remove();
+                floatingBtn = null;
+            };
+        } else {
+            console.error("Export JSON button (#export-json-btn) not found!");
+        }
+
+        const cancelExportBtn = document.getElementById("cancel-export-btn");
+        if (cancelExportBtn) {
+            cancelExportBtn.onclick = () => {
+                modal.style.display = "none";
+                if (floatingBtn) floatingBtn.remove();
+                floatingBtn = null;
+            };
+        } else {
+            console.error("Cancel Export button (#cancel-export-btn) not found!");
+        }
     });
 });
