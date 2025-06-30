@@ -74,10 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
     fontFamily: "sans-serif"
   });
   // Mostrar modal si es teléfono
-  if (isMobile && !isTablet) {
-    showModal("This application is not available on mobile devices.");
-    return;
-  }
+  //if (isMobile && !isTablet) {
+  //showModal("This application is not available on mobile devices.");
+  //return;
+  //}
 
   const warningIcon = document.createElement("div");
   warningIcon.innerText = "⚠️";
