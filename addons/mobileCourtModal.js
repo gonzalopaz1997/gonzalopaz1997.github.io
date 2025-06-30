@@ -1,3 +1,4 @@
+/* 
 document.addEventListener("DOMContentLoaded", () => {
   // Detectar si el dispositivo es móvil o tablet
   const isMobileOrTablet = /Mobi|Android|iPhone|iPad|iPod|Tablet/i.test(navigator.userAgent);
@@ -74,10 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
     fontFamily: "sans-serif"
   });
   // Mostrar modal si es teléfono
-  //if (isMobile && !isTablet) {
-  //showModal("This application is not available on mobile devices.");
-  //return;
-  //}
+  if (isMobile && !isTablet) {
+  showModal("This application is not available on mobile devices.");
+  return;
+  }
 
   const warningIcon = document.createElement("div");
   warningIcon.innerText = "⚠️";
@@ -109,3 +110,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+*/
