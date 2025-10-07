@@ -11,7 +11,7 @@ const SavedPositions = [
 // END - PLAY No. 2
 
 // START - PLAY No. 3
-// Paste future play in one line here
+// {"title":"Bandeja mitad de la cancha","youtubeLink":"youtube.com/hola","frames":[{"A1":{"top":"","left":""},"A2":{"top":"","left":""},"A3":{"top":"","left":""},"B1":{"top":"","left":""},"B2":{"top":"","left":""},"B3":{"top":"","left":""},"lead":{"top":"","left":""},"trail":{"top":"","left":""},"ball":{"top":"","left":""},"comment":"En esta primierajkjasldasdkasldasdaskdl"},{"A1":{"top":"505.773px","left":"748.5px"},"A2":{"top":"511.773px","left":"189.5px"},"A3":{"top":"229.773px","left":"680.5px"},"B1":{"top":"416.773px","left":"720.5px"},"B2":{"top":"473.773px","left":"273.5px"},"B3":{"top":"202.773px","left":"619.5px"},"lead":{"top":"","left":""},"trail":{"top":"","left":""},"ball":{"top":"480.273px","left":"764px"},"comment":"en este segundo frameñlsñdlñsadlas´ñdlasdñasd"},{"A1":{"top":"231.773px","left":"699.5px"},"A2":{"top":"511.773px","left":"189.5px"},"A3":{"top":"187.773px","left":"1036.5px"},"B1":{"top":"197.773px","left":"629.5px"},"B2":{"top":"473.773px","left":"273.5px"},"B3":{"top":"190.773px","left":"1009.5px"},"lead":{"top":"","left":""},"trail":{"top":"","left":""},"ball":{"top":"242.273px","left":"656px"},"comment":"En este momento el jugador A1 tira"}]}
 // END - PLAY No. 3
 
 // START - PLAY No. 4
